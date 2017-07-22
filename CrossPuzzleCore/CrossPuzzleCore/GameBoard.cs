@@ -97,6 +97,8 @@ namespace CrossPuzzleCore
             int value = 0;
             var pieceStack = new Stack<Piece>();
             pieceStack.Push(piece);
+            ResetCalcDir();
+            piece.CalcDir = piece.CalcDir.GetNextDirection();
             Piece nextPiece = GetNextPiece(piece.Position.X, piece.Position.Y, piece.PieceDir.GetNextDirection());
             while (nextPiece != null)
             {
@@ -106,10 +108,10 @@ namespace CrossPuzzleCore
                     break;
                 }
 
+                nextPiece.CalcDir = nextPiece.CalcDir.GetNextDirection();
                 pieceStack.Push(nextPiece);
-                nextPiece = GetNextPiece(nextPiece.Position.X, nextPiece.Position.Y, nextPiece.PieceDir.GetNextDirection());
+                nextPiece = GetNextPiece(nextPiece.Position.X, nextPiece.Position.Y, nextPiece.CalcDir);
             }
-
 
             foreach (Piece piece1 in pieceStack)
             {
@@ -154,6 +156,14 @@ namespace CrossPuzzleCore
             foreach (Piece piece in pieces)
             {
                 piece.Value = null;
+            }
+        }
+
+        public void ResetCalcDir()
+        {
+            foreach (Piece piece in pieces)
+            {
+                piece.ResetCalcDir();
             }
         }
 

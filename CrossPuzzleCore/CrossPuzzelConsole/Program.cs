@@ -11,7 +11,7 @@ namespace CrossPuzzelConsole
     {
         static void Main(string[] args)
         {
-            var gameBoard = new GameBoard(6, 5);
+            var gameBoard = new GameBoard(4, 3);
             Console.WriteLine(gameBoard);
             gameBoard.CalcValue();
             Console.WriteLine(gameBoard.ShowValueString());
