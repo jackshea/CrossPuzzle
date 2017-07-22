@@ -11,23 +11,24 @@ namespace CrossPuzzelConsole
     {
         static void Main(string[] args)
         {
-            var gameBoard = new GameBoard(4, 4);
+            var gameBoard = new GameBoard(6, 5);
             Console.WriteLine(gameBoard);
-            Console.WriteLine();
-
-            gameBoard.TurnPiece(0, 0);
-            //gameBoard.TurnPiece(0, 0);
-            //gameBoard.TurnPiece(0, 1);
-            Console.WriteLine(gameBoard);
-
-            gameBoard.ResetValue();
-            Piece piece = gameBoard.GetPiece(0,0);
-            gameBoard.CalcValue(piece);
-            Console.WriteLine(piece.Value);
-            Console.WriteLine();
-
             gameBoard.CalcValue();
             Console.WriteLine(gameBoard.ShowValueString());
+
+            string input = null;
+            do
+            {
+                input = Console.ReadLine();
+                var inputPos = input.Split(',');
+                int x = Convert.ToInt32(inputPos[0]);
+                int y = Convert.ToInt32(inputPos[1]);
+                gameBoard.TurnPiece(x, y);
+                Console.WriteLine(gameBoard);
+                gameBoard.CalcValue();
+                Console.WriteLine(gameBoard.ShowValueString());
+
+            } while (!string.IsNullOrEmpty(input));
 
             Console.ReadLine();
         }
